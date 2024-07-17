@@ -1,0 +1,78 @@
+Dockerize BOTH apps - the Python and the Node app.
+
+1) Create appropriate images for both apps (two separate images!).
+HINT: Have a brief look at the app code to configure your images correctly!
+
+- Answer:
+Criar o arquivo docker file e executar o comando abaixo no diretorio que contém cada projeto.
+----> docker build .
+
+2) Launch a container for each created image, making sure, 
+that the app inside the container works correctly and is usable.
+
+- Answer:
+Para a imagem do projeto node, executar o comando abaixo.
+----> docker run -p 8000:3000 ¨id_da_imagem¨
+
+Para a imagem do projeto python, executar o comando abaixo.
+----> docker run -it ¨id_da_imagem¨
+
+--- OBS ---
+A tag ¨i¨ serve para rodar o container de forma interativa.
+A tag ¨t¨ serve para simular um terminal para o container.
+
+3) Re-create both containers and assign names to both containers.
+Use these names to stop and restart both containers.
+
+- Answer:
+Comando para gerar a imagem docker com um nome definido.
+----> docker build -t nodeapp:latest .
+----> docker run -p 3000:3000 nodeapp
+
+ou
+----> docker run -p 3000:3000 --name nodeapp ¨id_da_imagem¨
+
+--- STOP CONTAINER ---
+----> docker stop ¨nome_da_imagem¨
+----> docker stop nodeapp
+
+--- START CONTAINER ---
+----> docker start ¨nome_da_imagem¨
+----> docker start nodeapp
+
+Comando para gerar a imagem docker com um nome definido.
+----> docker build -t pythonapp:latest .
+----> docker run -it pythonapp
+
+ou
+----> docker run -it --name pythonapp ¨id_da_imagem¨
+
+4) Clean up (remove) all stopped (and running) containers, 
+clean up all created images.
+
+- Answer:
+Remover containers.
+----> docker rm ¨nome_do_container¨
+---->  docker rm vigorous_sutherland pythonapp nodeapp
+
+---->  docker rmi nodeapp
+
+---->  docker image prune -a
+
+5) Re-build the images - this time with names and tags assigned to them.
+
+- Answer:
+Comando para gerar a imagem docker com um nome definido.
+----> docker build -t node-demo:latest .
+----> docker run -p 3000:3000 nodeapp
+
+----> docker build -t bmi-app:1 .
+
+6) Run new containers based on the re-built images, ensuring that the containers
+are removed automatically when stopped.
+
+- Answer:
+Comando executar as imagens e remover apos serem paradas.
+----> docker run -p 8000:3000 -d --name nodeapp --rm node-demo:latest
+
+----> docker run -it --name bmiapp --rm bmi-app:1
